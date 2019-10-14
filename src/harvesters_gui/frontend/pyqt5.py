@@ -678,10 +678,10 @@ class Harvester(QMainWindow):
     def action_on_save_video(self):
         if self.ia.is_recording:
             self.ia.is_recording = False
-            self.button_save_video.setIcon(QIcon(get_package_root() + Icon.dynamic_path + 'record_off.png'))
+            self.button_save_video.setIcon(Icon('record_off.png'))
         else:
             self.ia.is_recording = True
-            self.button_save_video.setIcon(QIcon(get_package_root() + Icon.dynamic_path + 'record_on.png'))
+            self.button_save_video.setIcon(Icon('record_on.png'))
 
     def action_on_snapshot(self):
         file_name = time.strftime("SnapShot[%Y.%m.%d]_[%H.%M.%S].bmp")
