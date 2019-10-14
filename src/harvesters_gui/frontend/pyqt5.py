@@ -452,8 +452,8 @@ class Harvester(QMainWindow):
         button_disconnect.add_observer(button_stop_image_acquisition)
         button_disconnect.add_observer(self._widget_device_list)
         button_disconnect.add_observer(button_save_video)
-        button_connect.add_observer(button_save_path)
-        button_connect.add_observer(button_snapshot)
+        button_disconnect.add_observer(button_save_path)
+        button_disconnect.add_observer(button_snapshot)
 
         #
         button_start_image_acquisition.add_observer(button_toggle_drawing)
