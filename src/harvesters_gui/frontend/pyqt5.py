@@ -35,6 +35,8 @@ from genicam2.gentl import NotInitializedException, InvalidHandleException, \
     InvalidParameterException, NotImplementedException, \
     AccessDeniedException
 
+
+from PIL import Image
 import vispy.io as vpio
 
 # Local application/library specific imports
@@ -684,11 +686,15 @@ class Harvester(QMainWindow):
             self.button_save_video.setIcon(Icon('record_on.png'))
 
     def action_on_snapshot(self):
-        file_name = time.strftime("SnapShot[%Y.%m.%d]_[%H.%M.%S].bmp")
-        file_name = os.path.join(self.ia.save_path, file_name)
-        image = self.canvas.render()
-        vpio.imsave(file_name, image)
-        return
+        if self.canvas._buffers:
+            buffer = self.canvas._buffers[0].payload.components[0]
+            image = Image.frombytes("L", (buffer.width, buffer.height), buffer.data)
+            file_name = time.strftime("SnapShot[%Y.%m.%d]_[%H.%M.%S].bmp")
+            file_name = os.path.join(self.ia.save_path, file_name)
+            image.save(file_name, format='bmp')
+            return True
+        else:
+            return False
 
     def action_on_save_path(self):
         dialog = QFileDialog(self)
